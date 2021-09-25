@@ -48,17 +48,17 @@ driver.switch_to.window(driver.window_handles[-1])
 thumTitHead = driver.find_element_by_class_name('tts_head')
 hdTitle = thumTitHead.text
 
+main = driver.find_element_by_id('articleBodyContents') # main content
+articleContent = main.text
+
 driver.back()
 driver.switch_to.window(driver.window_handles[-1])
-
-print('썸네일 링크 : ', hdHref) 
-print('썸네일 이미지 src : ', hdImgSrc)
-print('썸네일 제목 : ', hdTitle)
 
 result = []
 result.append(hdTitle)
 result.append(hdHref)
 result.append(hdImgSrc)
+result.append(articleContent)
 
 # li를 감싼 div 검색
 tmNews = driver.find_element_by_id('today_main_news')
@@ -66,6 +66,7 @@ tmNews = driver.find_element_by_id('today_main_news')
 tmNewsLis = tmNews.find_elements_by_tag_name('li')
 
 # li는 여러개이므로 for문으로 루프
+#for li in range(1):
 for li in range(len(tmNewsLis)) :
     tmNews = driver.find_element_by_id('today_main_news')
     tmNewsLis = tmNews.find_elements_by_tag_name('li')
@@ -81,7 +82,9 @@ for li in range(len(tmNewsLis)) :
     driver.get(href)
     time.sleep(1)
     driver.switch_to.window(driver.window_handles[-1])
-    main = driver.find_element_by_id('articleBody') # main content
+    main = driver.find_element_by_id('articleBodyContents') # main content
+    articleContent = main.text
+    
     try:
         imgTag = main.find_element_by_tag_name('img')
         imgSrc = imgTag.get_attribute('src')
@@ -89,15 +92,16 @@ for li in range(len(tmNewsLis)) :
         imgSrc = ''
     print('이미지 :', imgSrc)
     result.append(imgSrc)
-
+    result.append(articleContent)
     
     driver.back()
     time.sleep(1)
     driver.switch_to.window(driver.window_handles[-1])
     
-result = [result[i:i+3] for i in range(0, len(result), 3)]
+result = [result[i:i+4] for i in range(0, len(result), 4)]
 print(result)
 
+# 티스토리 api request 
 tistoryReq.autoWrite(result)
 
 driver.quit()

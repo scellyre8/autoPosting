@@ -44,28 +44,46 @@ def autoWrite(data):
      print(len(data))
      cnt = 1
      html = ""
+     thumTitle = ""
      for i in data:
           
           # <p data-ke-size="size16"><a href={i[1]}>{i[1]}</a>&nbsp;</p>
           
+          # 기사 내용 집어 넣을...
+          """
+          <div class="box">
+               <div class="content">{i[3]}
+               </div>
+          </div>
+          """
           html += f"""
                <p data-ke-size="size16">&nbsp;</p>
                <p data-ke-size="size16"><h2><a href={i[1]}>{i[0]}</a></h2></p>
-               <p><img src={i[2]}/></p>
+               <div style="width:700px; height:400px; text-align:center;"><img style="max-width:100%; max-height:100%;" src={i[2]}/></div>
+               
                <p data-ke-size="size16">&nbsp;</p>
                """
+          # 첫 카운트 기사 제목 저장
+          if cnt == 1:
+               thumTitle = i[0]
           if cnt == 3:
                html += centerAd
           if cnt == len(data):
                html += infeed
           cnt += 1
 
-     print(html)
+     """ print(html)
+     html_file = open('content_html.html', 'w+')
+     html_file.write(html)
+     html_file.close()
+
+     f = open('content_html.html', 'r', encoding='cp949')
+     content = f.read() """
 
      parameters = {
           'access_token': '5cdf432b969ce6d9197cefe1ed21cebc_7feada863ee0b7b8bec09804ab4195d1',
           'blogName': 'hellodoor',
-          'title': str(year) + '년 ' + str(mon) + '월 ' + str(day) + '일 뉴스 데일리 헤드라인',
+          'title': str(year) + '년 ' + str(mon) + '월 ' + str(day) + '일 헤드라인 뉴스 모음/' + thumTitle,
           'content': html,
           'visibility': '3',
           'category': '974645',
