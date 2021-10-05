@@ -92,6 +92,7 @@ for li in range(len(tmNewsLis)) :
         imgSrc = ''
     print('이미지 :', imgSrc)
     result.append(imgSrc)
+    articleContent = articleContent.replace('\n', "<br>")
     result.append(articleContent)
     
     driver.back()
@@ -101,10 +102,7 @@ for li in range(len(tmNewsLis)) :
 result = [result[i:i+4] for i in range(0, len(result), 4)]
 print(result)
 
-# 티스토리 api request 
-tistoryReq.autoWrite(result)
-
 driver.quit()
 
-# print(tmNewsHead.text)
-# driver.quit()
+# 티스토리 api request 
+tistoryReq.autoWrite(result)

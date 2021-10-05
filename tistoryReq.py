@@ -2,6 +2,10 @@ import requests
 # pip install requests
 from datetime import datetime
 
+import json
+import xmltodict
+import contentWrite
+
 today = datetime.today()
 year = today.year
 mon = today.month
@@ -57,12 +61,13 @@ def autoWrite(data):
           </div>
           """
           html += f"""
-               <p data-ke-size="size16">&nbsp;</p>
-               <p data-ke-size="size16"><h2><a href={i[1]}>{i[0]}</a></h2></p>
-               <div style="width:700px; height:400px; text-align:center;"><img style="max-width:100%; max-height:100%;" src={i[2]}/></div>
-               
-               <p data-ke-size="size16">&nbsp;</p>
-               """
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16"><h2><a href={i[1]}>{i[0]}</a></h2></p>
+<div style="width:700px; height:400px; text-align:center;"><img style="max-width:100%; max-height:100%;" src={i[2]}/></div>
+<div class="box">
+     <div class="content">{i[3]}</div>
+</div>
+"""
           # 첫 카운트 기사 제목 저장
           if cnt == 1:
                thumTitle = i[0]
@@ -84,7 +89,7 @@ def autoWrite(data):
           'access_token': '5cdf432b969ce6d9197cefe1ed21cebc_7feada863ee0b7b8bec09804ab4195d1',
           'blogName': 'hellodoor',
           'title': str(year) + '년 ' + str(mon) + '월 ' + str(day) + '일 헤드라인 뉴스 모음/' + thumTitle,
-          'content': html,
+          'content': '',
           'visibility': '3',
           'category': '974645',
           'tag': 'news, naver news, headline news, 뉴스, 네이버뉴스, 헤드라인 뉴스, python, 티스토리 api',
@@ -92,5 +97,19 @@ def autoWrite(data):
      }
 
      response = requests.post(tistoryUrl, params=parameters)
-     print(response.reason)
-     print(response.json)
+     print(response.text)
+
+     xmlData = response.text
+     # xml형식 -> json으로 변환
+     jsonStr = json.dumps(xmltodict.parse(xmlData), indent=4)
+     # json -> dic으로 변환
+     dict = json.loads(jsonStr)
+
+     print(dict['tistory'])
+     print(dict['tistory']['postId'])
+
+     result = []
+     result.append(dict['tistory']['postId'])
+     result.append(html)
+     
+     contentWrite.editPosting(result)
