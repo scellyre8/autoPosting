@@ -1,5 +1,6 @@
 import json
 import xmltodict
+# pip install xmltodict
 import pyautogui
 
 position = pyautogui.position()
@@ -21,8 +22,9 @@ after = before.replace('\n',"<br>")
 #print(tmp)
 print(after)
 
+print('---------------------')
 
-""" 
+
 xmlCode = '<tistory><status>200</status><postId>186</postId><url>https://hellodoor.tistory.com/186</url></tistory>'
 
 jsonStr = json.dumps(xmltodict.parse(xmlCode), indent=4)
@@ -30,8 +32,6 @@ jsonStr = json.dumps(xmltodict.parse(xmlCode), indent=4)
 print(jsonStr)
 
 dict = json.loads(jsonStr)
-print(dict)
 
 print(dict['tistory'])
 print(dict['tistory']['postId'])
-"""

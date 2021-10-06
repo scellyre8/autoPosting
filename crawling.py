@@ -50,6 +50,7 @@ hdTitle = thumTitHead.text
 
 main = driver.find_element_by_id('articleBodyContents') # main content
 articleContent = main.text
+articleContent = articleContent.replace('\n', "<br>")
 
 driver.back()
 driver.switch_to.window(driver.window_handles[-1])
