@@ -1,9 +1,5 @@
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
 
 import pyautogui
 import pyperclip
@@ -26,8 +22,13 @@ driver.implicitly_wait(10)
 
 def editPosting(data):
 
-    tistory = f'https://hellodoor.tistory.com/manage/newpost/{data[0]}?type=post&returnURL=https%3A%2F%2Fhellodoor.tistory.com%2Fmanage%2Fposts'
+    #tistory = f'https://hellodoor.tistory.com/manage/newpost/{data[0]}?type=post&returnURL=https%3A%2F%2Fhellodoor.tistory.com%2Fmanage%2Fposts'
+    tistory = f'https://movietrap.tistory.com/manage/newpost/{data[0]}?type=post&returnURL=https%3A%2F%2Fmovietrap.tistory.com%2Fmanage%2Fposts'
+    
     driver.get(tistory)
+    driver.set_window_position(-1600,0)
+    driver.maximize_window()
+
     time.sleep(2)
 
     mceu_20 = driver.find_element_by_id('mceu_20-open')
@@ -37,27 +38,11 @@ def editPosting(data):
     mceu_38 = driver.find_element_by_id('mceu_34')
     mceu_38.click()
 
-    js_tmp = """
-        javascript:(function() {
-            function l(u, i){
-                var d = document;
-                if(!d.getElementById(i)) {
-                    var s = d.createElement('script');
-                    s.src = u;
-                    s.id = i;
-                    d.body.appendChild(s);
-                }
-            }
-            l('//code.jquery.com/jquery-3.2.1.min.js', 'jquery')
-        })();
-    """
-    driver.execute_script(js_tmp)
+    #position = pyautogui.position()
 
-    position = pyautogui.position()
-
-    print(pyautogui.size())
-    print(position.x)
-    print(position.y)
+    #print(pyautogui.size())
+    #print(position.x)
+    #print(position.y)
 
     pyautogui.moveTo(-1495, 331)
     pyautogui.click()

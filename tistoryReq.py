@@ -51,19 +51,10 @@ def autoWrite(data):
      thumTitle = ""
      for i in data:
           
-          # <p data-ke-size="size16"><a href={i[1]}>{i[1]}</a>&nbsp;</p>
-          
-          # 기사 내용 집어 넣을...
-          """
-          <div class="box">
-               <div class="content">{i[3]}
-               </div>
-          </div>
-          """
           html += f"""
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size16"><h2><a href={i[1]}>{i[0]}</a></h2></p>
-<div style="width:700px; height:400px; text-align:center;"><img style="max-width:100%; max-height:100%;" src={i[2]}/></div>
+<div style="width:550px; height:auto; text-align:center;"><img style="max-width:100%; max-height:100%;" src={i[2]}/></div>
 <div class="box">
      <div class="content">{i[3]}</div>
 </div>
@@ -77,21 +68,13 @@ def autoWrite(data):
                html += infeed
           cnt += 1
 
-     """ print(html)
-     html_file = open('content_html.html', 'w+')
-     html_file.write(html)
-     html_file.close()
-
-     f = open('content_html.html', 'r', encoding='cp949')
-     content = f.read() """
-
      parameters = {
-          'access_token': '5cdf432b969ce6d9197cefe1ed21cebc_7feada863ee0b7b8bec09804ab4195d1',
-          'blogName': 'hellodoor',
+          'access_token': 'd3f25823c237dc088a66208479cc6568_25ea1642bae665bac4925e40cc8423dd',
+          'blogName': 'movietrap',
           'title': str(year) + '년 ' + str(mon) + '월 ' + str(day) + '일 헤드라인 뉴스 모음/' + thumTitle,
           'content': '',
           'visibility': '3',
-          'category': '974645',
+          'category': '1235081',
           'tag': 'news, naver news, headline news, 뉴스, 네이버뉴스, 헤드라인 뉴스, python, 티스토리 api',
           'acceptComment': '1'
      }

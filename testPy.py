@@ -2,10 +2,36 @@ import json
 import xmltodict
 # pip install xmltodict
 import pyautogui
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+import pyperclip
+
+import chromedriver_autoinstaller
+import subprocess
+
+subprocess.Popen(r'C:\Program Files\Google\Chrome\Application\chrome.exe --remote-debugging-port=9999 --user-data-dir="C:\chrometmp"')
+chrome_ver = chromedriver_autoinstaller.get_chrome_version().split('.')[0]
+
+option = Options()
+option.add_experimental_option("debuggerAddress", "127.0.0.1.:9999")
+try:
+    driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe', options=option)
+except:
+    chromedriver_autoinstaller.install(True)
+    driver = webdriver.Chrome(f'./{chrome_ver}/chromedriver.exe', options=option)
+driver.implicitly_wait(10)
+
+
+tistory = f'https://movietrap.tistory.com/manage/newpost/1?type=post&returnURL=https%3A%2F%2Fmovietrap.tistory.com%2Fmanage%2Fposts'
+driver.get(tistory)
+driver.set_window_position(-1600,0)
+driver.maximize_window() 
 
 position = pyautogui.position()
 
 print(pyautogui.size())
+print(position)
 print(position.x)
 print(position.y)
 
@@ -18,7 +44,7 @@ before = """
 된 권력형 비리 사건의 구린내가 펄펄 나는데도 ‘선택적 침묵’으로 일관하며 아예 국정을 외면하고 있다”며 “침묵해 주는 대가로 퇴임 후를 보장이라도 받겠다는 암묵적 생각은 설마 아니실 것으로 믿고 싶다”고 했다.'
 """
 #articleContent.replace("\", "\\")
-after = before.replace('\n',"<br>")
+""" after = before.replace('\n',"<br>")
 #print(tmp)
 print(after)
 
@@ -34,4 +60,4 @@ print(jsonStr)
 dict = json.loads(jsonStr)
 
 print(dict['tistory'])
-print(dict['tistory']['postId'])
+print(dict['tistory']['postId']) """

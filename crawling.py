@@ -23,7 +23,7 @@ except:
 driver.implicitly_wait(10)
 
 naverNewsUrl = 'https://news.naver.com/'
-tistory = 'https://hellodoor.tistory.com/manage'
+#tistory = 'https://hellodoor.tistory.com/manage'
 
 driver.get(naverNewsUrl)
 
